@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./src/assets/logo.ico" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <meta name="theme-color" content="#f8fafc" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <title>ITM</title>
+    <style>
+      body {
+        touch-action: pan-x pan-y;
+        overflow: hidden;
+        user-select: none;
+        -ms-content-zooming: none;
+        -ms-touch-action: none;
+        zoom: reset !important;
+        text-size-adjust: 100% !important;
+      }
+      html {
+        touch-action: pan-x pan-y;
+        overflow: hidden;
+      }
+    </style>
+    <script type="module">
+      import { Helmet } from 'react-helmet'
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="portal"></div> 
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

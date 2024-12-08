@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+  react-app:
+    build:
+      context: . # Chỉ định thư mục hiện tại chứa Dockerfile
+    container_name: tuanvhoang31/fe_itm_v1:latest
+    ports:
+      - '3000:3000' # Mở cổng 3000
+    deploy:
+      resources:
+        limits:
+          cpus: '2.5' # Giới hạn container dùng tối đa 2.5 core CPU
+          memory: 4g # Giới hạn tối đa 4GB RAM
+        reservations:
+          cpus: '1.5' # Đảm bảo container luôn có ít nhất 1.5 core CPU
+          memory: 2g # Đảm bảo ít nhất 2GB RAM
+    environment:
+      - NODE_ENV=production # Đặt môi trường thành production để tối ưu hiệu năng
+      - PORT=3000 # Đặt cổng ứng dụng
+    volumes:
+      - .:/app # Gắn mã nguồn từ host vào container để phát triển
+      - /app/node_modules # Tránh xung đột giữa node_modules của host và container
+    networks:
+      - react_network # Kết nối với mạng nội bộ
+
+networks:
+  react_network:
+    driver: bridge # Mạng kiểu bridge giúp tăng hiệu quả giao tiếp giữa các container

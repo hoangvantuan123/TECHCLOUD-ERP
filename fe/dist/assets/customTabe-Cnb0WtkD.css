@@ -1,0 +1,23 @@
+.tui-grid-container,
+.tui-grid-cell-content {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Helvetica Neue,
+    Arial,
+    Noto Sans,
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    Segoe UI Symbol,
+    'Noto Color Emoji';
+  font-size: 14px;
+}
+.tui-grid-header {
+  font-size: 15px;
+}
+.tui-grid-row:hover .tui-grid-cell-content {
+  background-color: #f0f8ff;
+}

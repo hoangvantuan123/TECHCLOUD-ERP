@@ -1,0 +1,4 @@
+/* Thêm CSS vào tệp CSS toàn cục hoặc tệp CSS mô-đun của bạn */
+.custom-tabs-container .ant-tabs-content-holder {
+  display: none;
+}
