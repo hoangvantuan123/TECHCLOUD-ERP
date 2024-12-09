@@ -4,7 +4,7 @@ import {
   PrimaryGeneratedColumn
 } from 'typeorm';
 
-@Entity('_TCAMenus_WEB')
+@Entity('_ERPMenus_WEB')
 export class TCAMenusWEB {
 
   @PrimaryGeneratedColumn()

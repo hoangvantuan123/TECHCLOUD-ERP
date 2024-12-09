@@ -5,7 +5,7 @@ import { Connection } from 'typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { HealthController } from './health.controller';
-import { sqlServerITMV20240117 } from './config/database.config';
+import { SQLSERVER_ERP } from './config/database.config';
 import { APP_FILTER } from '@nestjs/core';
 import { AuthsModule } from './modules/auth/module/auths.module';
 import { RolesUsersModule } from './modules/rolesGuard/module/rolesUsers.module';
@@ -17,8 +17,8 @@ import { RolesUsersModule } from './modules/rolesGuard/module/rolesUsers.module'
     }),
     /*  TypeOrmModule.forRoot(databaseConfig1), */
     TypeOrmModule.forRoot({
-      ...sqlServerITMV20240117,
-      name: 'ITMV20240117',
+      ...SQLSERVER_ERP,
+      name: 'SQLSERVER_ERP',
     }),
     AuthsModule,
     RolesUsersModule
@@ -31,14 +31,14 @@ import { RolesUsersModule } from './modules/rolesGuard/module/rolesUsers.module'
 })
 export class AppModule implements OnModuleInit {
   constructor(
-    @InjectConnection('ITMV20240117') private readonly connection2: Connection,
+    @InjectConnection('SQLSERVER_ERP') private readonly connection2: Connection,
   ) { }
 
   async onModuleInit() {
 
 
     if (this.connection2.isConnected) {
-      console.log('ITMV20240117 connected');
+      console.log('SQLSERVER_ERP connected');
     } else {
       console.error('Failed to connect to the second database');
     }

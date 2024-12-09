@@ -4,7 +4,7 @@ import {
     PrimaryGeneratedColumn
   } from 'typeorm';
 
-  @Entity('_TCARootMenus_WEB')
+  @Entity('_ERPRootMenus_WEB')
   export class TCARootMenusWEB {
   
     @PrimaryGeneratedColumn()

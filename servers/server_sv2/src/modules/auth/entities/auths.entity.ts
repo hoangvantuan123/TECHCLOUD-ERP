@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm';
 
-@Entity('_TCAUser_WEB')
-export class TCAUserWEB {
+@Entity('_ERPUser_WEB')
+export class ERPUserWEB {
 
     @Column({ nullable: true })
     CompanySeq: number;

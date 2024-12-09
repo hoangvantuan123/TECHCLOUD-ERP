@@ -6,7 +6,7 @@ import {
     Timestamp,
   } from 'typeorm';
 
-@Entity('_TCAGroups_WEB')
+@Entity('_ERPGroups_WEB')
 export class TCAGroupsWEB {
 
     @PrimaryGeneratedColumn()

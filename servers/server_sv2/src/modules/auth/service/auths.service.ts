@@ -8,13 +8,13 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as jwt from 'jsonwebtoken';
-import { TCAUserWEB } from '../entities/auths.entity';
+import { ERPUserWEB } from '../entities/auths.entity';
 import { UserAuthService } from './user.service';
 import { jwtConstants } from 'src/config/security.config';
 import * as crypto from 'crypto';
 import { LoginDto } from '../dto/login.dto';
 import * as bcrypt from 'bcrypt';
-import { DatabaseService } from 'src/common/database/sqlServer/ITMV20240117/database.service';
+import { DatabaseService } from 'src/common/database/mssql/database.service';
 
 interface RoleMenuData {
     menu: any[];
@@ -26,8 +26,8 @@ export class AuthService {
     constructor(
         private readonly userAuthService: UserAuthService,
         private readonly databaseService: DatabaseService,
-        @InjectRepository(TCAUserWEB)
-        private readonly userWEBRepository: Repository<TCAUserWEB>) { }
+        @InjectRepository(ERPUserWEB)
+        private readonly userWEBRepository: Repository<ERPUserWEB>) { }
     private async hashPassword(password: string): Promise<string> {
         const saltRounds = 10;
         return bcrypt.hash(password, saltRounds);
@@ -51,7 +51,7 @@ export class AuthService {
             const query = `
               WITH GroupIDs AS (
     SELECT DISTINCT GroupId 
-    FROM "_TCARolesUsers_WEB" 
+    FROM "_ERPRolesUsers_WEB" 
     WHERE UserId = N'${UserId}'
 )
 SELECT 
@@ -67,10 +67,10 @@ SELECT
     rm.Icon AS RootMenuIcon, 
     rm.Link AS RootMenuLink, 
     rm.Utilities AS RootMenuUtilities  
-FROM "_TCARolesUsers_WEB" r
-LEFT JOIN "_TCAMenus_WEB" m 
+FROM "_ERPRolesUsers_WEB" r
+LEFT JOIN "_ERPMenus_WEB" m 
     ON r.MenuId = m.Id AND r.Type = 'menu'
-LEFT JOIN "_TCARootMenus_WEB" rm 
+LEFT JOIN "_ERPRootMenus_WEB" rm 
     ON r.RootMenuId = rm.Id AND r.Type = 'rootmenu'
 WHERE r.GroupId IN (SELECT GroupId FROM GroupIDs)
 AND r.Type IN ('rootmenu', 'menu');
@@ -170,7 +170,7 @@ AND r.Type IN ('rootmenu', 'menu');
         loginData: LoginDto,
     ): Promise<{
         success: boolean;
-        data?: { user: Partial<TCAUserWEB>; token: string; tokenRolesUserMenu: string };
+        data?: { user: Partial<ERPUserWEB>; token: string; tokenRolesUserMenu: string };
         error?: { message: string; code: string };
     }> {
         const { login, password } = loginData;

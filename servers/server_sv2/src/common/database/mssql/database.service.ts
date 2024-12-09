@@ -7,17 +7,17 @@ import { ERROR_MESSAGES, SUCCESS_MESSAGES } from 'src/common/utils/constants';
 export class DatabaseService {
   private queryRunner: QueryRunner;
 
-  constructor(@InjectConnection('ITMV20240117') private readonly ITMV20240117: Connection) {
-    this.queryRunner = this.ITMV20240117.createQueryRunner();
+  constructor(@InjectConnection('SQLSERVER_ERP') private readonly SQLSERVER_ERP: Connection) {
+    this.queryRunner = this.SQLSERVER_ERP.createQueryRunner();
     this.checkConnection();
   }
 
   private async checkConnection() {
     try {
-      if (this.ITMV20240117.isConnected) {
-        console.log(SUCCESS_MESSAGES.SUCCESS_ITMV20240117);
+      if (this.SQLSERVER_ERP.isConnected) {
+        console.log(SUCCESS_MESSAGES.SUCCESS_SQLSERVER_ERP);
       } else {
-        console.error(ERROR_MESSAGES.ERROR_ITMV20240117);
+        console.error(ERROR_MESSAGES.ERROR_SQLSERVER_ERP);
       }
     } catch (error) {
       console.error(ERROR_MESSAGES.DATABASE_ERROR, error);
@@ -61,7 +61,7 @@ export class DatabaseService {
 
 
  async findAuthByEmpID(UserId: string): Promise<any> {
-  const query = `SELECT * FROM "_TCAUser_WEB" WHERE "UserId" = '${UserId}'`;
+  const query = `SELECT * FROM "_ERPUser_WEB" WHERE "UserId" = '${UserId}'`;
 
   try {
     const result = await this.queryRunner.query(query);

@@ -2,13 +2,12 @@ import { Injectable, NotFoundException, InternalServerErrorException } from '@ne
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository , In} from 'typeorm';
 import { SimpleQueryResult } from 'src/common/interfaces/simple-query-result.interface';
-import { DatabaseService } from 'src/common/database/sqlServer/ITMV20240117/database.service';
+import { DatabaseService } from 'src/common/database/mssql/database.service';
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from 'src/common/utils/constants';
 import { TCAGroupsWEB } from '../entities/groups.entity';
 import { TCAMenusWEB } from '../entities/menus.entity';
 import { TCARootMenusWEB } from '../entities/rootMenus.entity';
 import { TCARolesUsersWEB } from '../entities/rolesUsers.entity';
-import { TCAUserWEB } from 'src/modules/auth/entities/auths.entity';
 import { CreateResUsersDto } from '../dto/users.dto';
 import { UpdateRoleDto } from '../dto/updateRole.dto';
 
@@ -207,8 +206,8 @@ export class SystemUsersService {
     try {
       const query = `
         SELECT users."UserId" , users."UserSeq",  users."UserName", users."CompanySeq", users."CustSeq"
-        FROM "_TCAUser_WEB" users
-        LEFT JOIN "_TCARolesUsers_WEB" roleUser
+        FROM "_ERPUser_WEB" users
+        LEFT JOIN "_ERPRolesUsers_WEB" roleUser
           ON users."UserId" = roleUser."UserId" AND roleUser."GroupId" = ${groupId}
         WHERE roleUser."UserId" IS NULL;
         `;
@@ -311,8 +310,8 @@ export class SystemUsersService {
                 rolesUsers."Name" AS "Name",
                 rootMenus."Label" AS "Label",
                 ROW_NUMBER() OVER (ORDER BY rolesUsers."Id" ASC) AS row_num
-            FROM "_TCARolesUsers_WEB" rolesUsers
-            LEFT JOIN "_TCARootMenus_WEB" rootMenus
+            FROM "_ERPRolesUsers_WEB" rolesUsers
+            LEFT JOIN "_ERPRootMenus_WEB" rootMenus
             ON rolesUsers."RootMenuId" = rootMenus."Id"
             WHERE rolesUsers."GroupId" = ${groupId}
               AND rolesUsers."Type" = 'rootmenu'
@@ -321,7 +320,7 @@ export class SystemUsersService {
       const totalResult = await this.databaseService.executeQuery(
         `
         SELECT COUNT(*) AS total
-        FROM "_TCARolesUsers_WEB" rolesUsers
+        FROM "_ERPRolesUsers_WEB" rolesUsers
         WHERE rolesUsers."GroupId" = ${groupId}
           AND rolesUsers."Type" = 'rootmenu';
         `
@@ -373,8 +372,8 @@ export class SystemUsersService {
                 menus."Label" AS "Label",
                 menus."Type" AS "MenuType",
                 ROW_NUMBER() OVER (ORDER BY rolesUsers."Id" ASC) AS row_num
-            FROM "_TCARolesUsers_WEB" rolesUsers
-            LEFT JOIN "_TCAMenus_WEB" menus
+            FROM "_ERPRolesUsers_WEB" rolesUsers
+            LEFT JOIN "_ERPMenus_WEB" menus
             ON rolesUsers."MenuId" = menus."Id"
             WHERE rolesUsers."GroupId" = ${groupId}
               AND rolesUsers."Type" = 'menu'
@@ -383,7 +382,7 @@ export class SystemUsersService {
       const totalResult = await this.databaseService.executeQuery(
         `
         SELECT COUNT(*) AS total
-        FROM "_TCARolesUsers_WEB" rolesUsers
+        FROM "_ERPRolesUsers_WEB" rolesUsers
         WHERE rolesUsers."GroupId" = ${groupId}
           AND rolesUsers."Type" = 'menu';
         `
@@ -427,8 +426,8 @@ export class SystemUsersService {
           rolesUsers."Type" AS "Type",
           rolesUsers."Name" AS "Name",
           Users."UserName" AS "UserName"
-      FROM "_TCARolesUsers_WEB" rolesUsers
-      LEFT JOIN "_TCAUser_WEB" users
+      FROM "_ERPRolesUsers_WEB" rolesUsers
+      LEFT JOIN "_ERPUser_WEB" users
       ON rolesUsers."UserId" = users."UserId"
       WHERE rolesUsers."GroupId" = ${groupId}
         AND rolesUsers."Type" = 'user'
@@ -437,7 +436,7 @@ export class SystemUsersService {
       const totalResult = await this.databaseService.executeQuery(
         `
         SELECT COUNT(*) AS total
-        FROM "_TCARolesUsers_WEB" rolesUsers
+        FROM "_ERPRolesUsers_WEB" rolesUsers
         WHERE rolesUsers."GroupId" = ${groupId}
           AND rolesUsers."Type" = 'user';
         `

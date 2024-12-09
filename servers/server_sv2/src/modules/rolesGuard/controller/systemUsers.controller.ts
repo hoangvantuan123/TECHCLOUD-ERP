@@ -23,7 +23,7 @@ import { TCAGroupsWEB } from '../entities/groups.entity';
 import { TCAMenusWEB } from '../entities/menus.entity';
 import { TCARootMenusWEB } from '../entities/rootMenus.entity';
 import { TCARolesUsersWEB } from '../entities/rolesUsers.entity';
-import { TCAUserWEB } from 'src/modules/auth/entities/auths.entity';
+import { ERPUserWEB } from 'src/modules/auth/entities/auths.entity';
 import { CreateResUsersDto } from '../dto/users.dto';
 import { UpdateRoleDto } from '../dto/updateRole.dto';
 
@@ -32,7 +32,7 @@ import { UpdateRoleDto } from '../dto/updateRole.dto';
 export class SystemUsersController {
     constructor(private readonly systemUsersService: SystemUsersService) { }
 
-    @Get('itm-roles-data-users-web')
+    @Get('erpw-roles-data-users-web')
     async convertDC(
         @Query('userId') userId: string,
         @Query('userName') userName: string,
@@ -41,7 +41,7 @@ export class SystemUsersController {
         return result;
     }
 
-    @Post('itm-groups')
+    @Post('erpw-groups')
     async groupRoles(
         @Req() req: Request,
         @Body() createResGroupsDto: Partial<CreateResGroupsDto>,
@@ -61,7 +61,7 @@ export class SystemUsersController {
         }
     }
 
-    @Get('itm-groups-all')
+    @Get('erpw-groups-all')
     async findAll(
         @Req() req: Request,
     ): Promise<{ data: any[]; total: number }> {
@@ -90,7 +90,7 @@ export class SystemUsersController {
 
 
 
-    @Post('itm-menu')
+    @Post('erpw-menu')
     async createMenu(
         @Body() createUIMenu: TCAMenusWEB,
         @Req() req: Request,
@@ -106,7 +106,7 @@ export class SystemUsersController {
             );
         }
     }
-    @Post('itm-root-menu')
+    @Post('erpw-root-menu')
     async createRootMenu(
         @Body() createUIRootMenu: TCARootMenusWEB,
         @Req() req: Request,
@@ -123,14 +123,14 @@ export class SystemUsersController {
         }
     }
 
-    @Get('itm-root-menu-all')
+    @Get('erpw-root-menu-all')
     async findAllRootMenu(
         @Param('userId') userId: string,
         @Query() filter: Record<string, any>,
     ) {
         return this.systemUsersService.findAllRootMenu(filter);
     }
-    @Get('itm-menu-all')
+    @Get('erpw-menu-all')
     async findAllMenu(
         @Param('userId') userId: string,
         @Query() filter: Record<string, any>,
@@ -168,7 +168,7 @@ export class SystemUsersController {
     }
 
 
-    @Post('itm-roles-root-menus')
+    @Post('erpw-roles-root-menus')
     async createRolesRootMenus(
         @Body() body: { rootMenuIds: number[], groupId: number, type: string },
         @Req() req: Request,
@@ -187,7 +187,7 @@ export class SystemUsersController {
             );
         }
     }
-    @Post('itm-roles-menus')
+    @Post('erpw-roles-menus')
     async createRolesMenus(
         @Body() body: { menuIds: number[], groupId: number, type: string },
         @Req() req: Request,
@@ -206,7 +206,7 @@ export class SystemUsersController {
             );
         }
     }
-    @Post('itm-roles-users')
+    @Post('erpw-roles-users')
     async createRolesUsers(
         @Body() body: { userIds: string[], groupId: number, type: string },
         @Req() req: Request,

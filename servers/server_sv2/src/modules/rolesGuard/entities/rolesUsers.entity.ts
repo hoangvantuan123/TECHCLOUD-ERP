@@ -6,7 +6,7 @@ import {
   Timestamp,
 } from 'typeorm';
 
-@Entity('_TCARolesUsers_WEB')
+@Entity('_ERPRolesUsers_WEB')
 export class TCARolesUsersWEB {
 
   @PrimaryGeneratedColumn()
