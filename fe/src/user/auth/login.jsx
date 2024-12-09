@@ -43,7 +43,6 @@ export default function Login({ fetchPermissions, processRolesMenu }) {
       const response = await LoginAuth({ login, password })
 
       if (response.success) {
-        console.log('response', response)
         localStorage.setItem('userInfo', JSON.stringify(response.data.user))
         localStorage.setItem('roles_menu', response.data.tokenRolesUserMenu)
         Cookies.set('a_a', response.data.token)
@@ -52,7 +51,6 @@ export default function Login({ fetchPermissions, processRolesMenu }) {
       } else {
         switch (response.error.code) {
           case 'ACCOUNT_NOT_ACTIVATED':
-            console.log('ACCOUNT_NOT_ACTIVATED')
             setStatus(true)
             break
           case 'USER_NOT_FOUND':
@@ -97,7 +95,6 @@ export default function Login({ fetchPermissions, processRolesMenu }) {
         oldPassword,
         newPassword,
       )
-      console.log('response', response)
       if (response.success) {
         message.success(response.message || 'Password changed successfully!')
 

@@ -154,7 +154,7 @@ function TableUserManagement({
   return (
     <div className="w-full gap-1 h-full flex items-center justify-center pb-8">
       <div className="w-full h-full flex flex-col border bg-white rounded-lg overflow-hidden ">
-        <h2 className="text-xs font-medium flex items-center gap-2 p-2 text-blue-600 uppercase">
+        <h2 className="text-xs  border-b font-medium flex items-center gap-2 p-2 text-blue-600 uppercase">
           <TableOutlined />
           DATA SHEET
         </h2>

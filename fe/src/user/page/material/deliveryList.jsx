@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet'
-import { Input, Space, Table, Typography, message, Tabs, Layout } from 'antd'
+import { Typography, notification } from 'antd'
 const { Title, Text } = Typography
 import { FilterOutlined } from '@ant-design/icons'
 import { ArrowIcon } from '../../components/icons'
@@ -38,36 +38,49 @@ export default function DeliveryList({ permissions, isMobile }) {
   const [clickedRowData, setClickedRowData] = useState(null)
   const [clickedRowDataList, setClickedRowDataList] = useState([])
   const [gridData, setGridData] = useState([])
-  const [isOpenDetails, setIsOpenDetails] = useState(false)
 
-  useEffect(() => {
-    const savedState = localStorage.getItem('detailsStateDelist')
-    setIsOpenDetails(savedState === 'open')
-  }, [])
 
-  const handleToggle = (event) => {
-    const isOpen = event.target.open
-    setIsOpenDetails(isOpen)
-    localStorage.setItem('detailsStateDelist', isOpen ? 'open' : 'closed')
-  }
+  let loadingNotification;
 
-  const fetchDeliveryData = useCallback(async () => {
-    setLoading(true)
+  const fetchDeliveryData = async () => {
+    setLoading(true);
     try {
       const deliveryResponse = await GetDeliveryList(
-        formatDate(formData),
-        formatDate(toDate),
+        formData ? formatDate(formData) : '',
+        toDate ? formatDate(toDate) : '',
         deliveryNo,
         bizUnit,
-      )
-      setData(deliveryResponse?.data || [])
-    } catch (error) {
-      setData([])
-    } finally {
-      setLoading(false)
-    }
-  }, [formData, toDate, deliveryNo, bizUnit, formatDate])
+      );
+  
+      const fetchedData = deliveryResponse?.data || [];
+      setData(fetchedData);
+      /* notification.destroy();
+  
+      if (fetchedData.length > 0) {
+        notification.success({
+          message: 'Thành công',
+          description: 'Dữ liệu đã được tải thành công.',
+        });
+      } else {
+        notification.success({
+          message: 'Thành công',
+          description: 'Không có dữ liệu phù hợp được tìm thấy.',
 
+        });
+      } */
+  
+    } catch (error) {
+      setData([]);
+      notification.destroy();
+      notification.error({
+        message: 'Lỗi',
+        description: 'Có lỗi xảy ra khi tải dữ liệu.',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   const fetchCodeHelpData = useCallback(async () => {
     setLoading(true)
     try {
@@ -90,10 +103,7 @@ export default function DeliveryList({ permissions, isMobile }) {
     }
   }, [])
 
-  const debouncedFetchDeliveryData = useMemo(
-    () => debounce(fetchDeliveryData, 100),
-    [fetchDeliveryData],
-  )
+
   const debouncedFetchCodeHelpData = useMemo(
     () => debounce(fetchCodeHelpData, 100),
     [fetchCodeHelpData],
@@ -169,11 +179,8 @@ export default function DeliveryList({ permissions, isMobile }) {
   }
 
   useEffect(() => {
-    debouncedFetchDeliveryData()
-    return () => {
-      debouncedFetchDeliveryData.cancel()
-    }
-  }, [debouncedFetchDeliveryData])
+    fetchDeliveryData()
+  }, [])
 
   useEffect(() => {
     debouncedFetchCodeHelpData()
@@ -200,8 +207,7 @@ export default function DeliveryList({ permissions, isMobile }) {
             </div>
             <details
               className="group p-2 [&_summary::-webkit-details-marker]:hidden border rounded-lg bg-white"
-              open={isOpenDetails}
-              onToggle={handleToggle}
+              open
             >
               <summary className="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
                 <h2 className="text-xs font-medium flex items-center gap-2 text-blue-600 uppercase">
@@ -230,25 +236,17 @@ export default function DeliveryList({ permissions, isMobile }) {
 
           <div className="col-start-1 col-end-5 row-start-2 w-full h-full rounded-lg  overflow-auto">
 
-            {data.length > 0 ? (
-              <>
-                <TableDeliveryList
-                  data={data}
-                  setCheckedPath={setCheckedPath}
-                  checkedPath={checkedPath}
-                  setKeyPath={setKeyPath}
-                  loading={loading}
-                  setData={setData}
-                  onCellClicked={onCellClicked}
-                  setGridData={setGridData}
-                  gridData={gridData}
-                />
-              </>
-            ) : (
-              <>
-                <NoneData />
-              </>
-            )}
+            <TableDeliveryList
+              data={data}
+              setCheckedPath={setCheckedPath}
+              checkedPath={checkedPath}
+              setKeyPath={setKeyPath}
+              loading={loading}
+              setData={setData}
+              onCellClicked={onCellClicked}
+              setGridData={setGridData}
+              gridData={gridData}
+            />
           </div>
         </div>
       </div>

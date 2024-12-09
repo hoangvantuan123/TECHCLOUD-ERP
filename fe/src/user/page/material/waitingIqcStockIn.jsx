@@ -616,8 +616,7 @@ export default function WaitingIqcStockIn({ permissions, isMobile }) {
             </div>
             <details
               className="group p-2 [&_summary::-webkit-details-marker]:hidden border rounded-lg bg-white"
-              open={isOpenDetails}
-              onToggle={handleToggle}
+              open
             >
               <summary className="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
                 <h2 className="text-xs font-medium flex items-center gap-2 text-blue-600 uppercase">

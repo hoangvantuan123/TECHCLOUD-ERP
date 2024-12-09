@@ -44,7 +44,14 @@ export default function StockOutRequestQuery({
   outReqNo,
   setOutReqNo,
   setDeptName,
-  setDeptSeq
+  setDeptSeq,
+  resetTable,
+  setEmpName,
+  setEmpSeq,
+  resetTable2,
+  setCustSeq,
+  setCustName,
+  resetTable3
 }) {
   const handleFormDate = (date) => {
     setFormData(date)
@@ -64,7 +71,20 @@ export default function StockOutRequestQuery({
   const handleOnChangeDeptName = (e) => {
     setDeptName(e.target.value)
     setDeptSeq('')
+    resetTable()
   }
+  const handleOnChangeEmpName = (e) => {
+    setEmpName(e.target.value)
+    setEmpSeq('')
+    resetTable2()
+  }
+  const handleOnChangeCustName = (e) => {
+    setCustName(e.target.value)
+    setCustSeq('')
+    resetTable3()
+  }
+
+
   return (
     <div className="flex items-center gap-2">
       <Form
@@ -171,6 +191,7 @@ export default function StockOutRequestQuery({
                 }}
 
                 value={empName}
+                onChange={handleOnChangeEmpName}
                 onDoubleClick={handleSearch2}
               />
             </Form.Item>
@@ -189,6 +210,7 @@ export default function StockOutRequestQuery({
                   }
                 }}
                 value={custName}
+                onChange={handleOnChangeCustName}
                 onDoubleClick={handleSearch3}
               />
             </Form.Item>

@@ -8,7 +8,7 @@ const Context = React.createContext({
 const NotificationApp = ({ loading, error }) => {
     const [api, contextHolder] = notification.useNotification();
     const [isLoading, setIsLoading] = useState(loading);
-
+    console.log('loading', loading)
     useEffect(() => {
         if (isLoading) {
             api.info({
@@ -22,7 +22,7 @@ const NotificationApp = ({ loading, error }) => {
         } else {
             api.destroy();
         }
-    }, [isLoading, api]);
+    }, [loading, api]);
 
     useEffect(() => {
         if (error) {
@@ -38,7 +38,7 @@ const NotificationApp = ({ loading, error }) => {
     }, [error, api]);
 
     useEffect(() => {
-        if (!isLoading && !error) {
+        if (!loading && !error) {
             api.success({
                 message: 'Thành công!',
                 description: 'Dữ liệu đã được tải thành công.',
@@ -48,15 +48,7 @@ const NotificationApp = ({ loading, error }) => {
                 closable: false,
             });
         }
-    }, [isLoading, error, api]);
-
-    useEffect(() => {
-        if (loading) {
-            setIsLoading(true);
-        } else {
-            setIsLoading(false);
-        }
-    }, [loading]);
+    }, [loading, error, api]);
 
     return (
         <>

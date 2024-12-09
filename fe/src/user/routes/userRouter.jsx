@@ -49,6 +49,7 @@ const UserRouter = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [menuTransForm, setMenuTransForm] = useState([])
+
   const [rootMenuItems, setRootMenuItems] = useState([])
   const [errorMenu, setErrorMenu] = useState(false)
   const [userPermissions, setUserPermissions] = useState([])
@@ -63,11 +64,12 @@ const UserRouter = () => {
     if (!rolesMenu) return
     try {
       const data = decodeJWT(rolesMenu)
+
       const settingItems = data?.data[0]?.menu || []
       const rootMenuItems = data?.data[1]?.rootMenu || []
       setUserPermissions(settingItems)
       setRootMenuItems(rootMenuItems)
-      const transformedMenu = transformDataMenu(settingItems)
+      const transformedMenu = transformDataMenu(settingItems, rootMenuItems)
       setMenuTransForm(transformedMenu)
     } catch (error) {
       setErrorMenu(true)

@@ -37,10 +37,10 @@ export const sqlServerITMV20240117: TypeOrmModuleOptions = {
   extra: {
     trustServerCertificate: true,
     encrypt: false,  // Tắt mã hóa nếu không cần thiết, có thể cải thiện hiệu suất
-    connectionTimeout: 100000,
-    max: 100000,  // Số kết nối tối đa
+    connectionTimeout: 10000000,
+    max: 10000000,  // Số kết nối tối đa
     min: 10,  // Số kết nối tối thiểu
-    idleTimeoutMillis: 300000,  // Thời gian chờ cho kết nối nhàn rỗi
+    idleTimeoutMillis: 3000000,  // Thời gian chờ cho kết nối nhàn rỗi
   },
   maxQueryExecutionTime: 10000,  // Giới hạn thời gian thực thi query là 10 giây
 };

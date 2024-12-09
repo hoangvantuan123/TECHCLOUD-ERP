@@ -1,0 +1,45 @@
+version: '3.3'
+
+services:
+  server1:
+    build: ./server_2
+    container_name: server2_itm_auth
+    ports:
+      - "8083:8083"  # Thay thế biến môi trường ${SERVER1_PORT} nếu cần
+    volumes:
+      - ./logs/server_2:/app/logs
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "4.0"  # Giới hạn tối đa 4 CPU
+          memory: 8G  # Giới hạn bộ nhớ 8GB
+        reservations:
+          cpus: "2.0"  # Dự trữ ít nhất 2 CPU
+          memory: 4G  # Dự trữ ít nhất 4GB RAM
+    networks:
+      - backend_net
+
+  server2:
+    build: ./server_1
+    container_name: server1_itm_warhouse
+    ports:
+      - "8086:8086"  # Thay thế biến môi trường ${SERVER2_PORT} nếu cần
+    volumes:
+      - ./logs/server_1:/app/logs
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "4.0"
+          memory: 8G
+        reservations:
+          cpus: "2.0"
+          memory: 4G
+    networks:
+      - backend_net
+
+
+networks:
+  backend_net:
+    driver: bridge

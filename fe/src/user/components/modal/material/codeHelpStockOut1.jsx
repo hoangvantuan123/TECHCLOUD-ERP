@@ -4,8 +4,6 @@ import { SearchOutlined, FilterOutlined } from '@ant-design/icons'
 import { ArrowIcon } from '../../icons'
 import TableCodeHelpStockOut1 from '../../table/codeHelp/codeHelpStockOut1'
 const { Search } = Input
-import CryptoJS from 'crypto-js'
-import { encodeBase64Url } from '../../../../utils/decode-JWT'
 import { CompactSelection } from '@glideapps/glide-data-grid'
 
 export default function CodeHelpStockOut1({
@@ -13,23 +11,19 @@ export default function CodeHelpStockOut1({
   data,
   modalVisible,
   setModalVisible,
-  setKeyword,
-  keyword,
   fetchCodehelpData1,
   handleSearch,
   setSubConditionSql,
   setDeptName,
   setDeptSeq,
-  setData1,
-  deptName
+  deptName, 
+  selection, setSelection, 
+  resetTable
 }) {
   const [isMinusClicked, setIsMinusClicked] = useState(false)
   const [lastClickedCell, setLastClickedCell] = useState(null)
   const [clickedRowData, setClickedRowData] = useState(null)
-  const [selection, setSelection] = useState({
-    columns: CompactSelection.empty(),
-    rows: CompactSelection.empty(),
-  })
+ 
   const [keyPath, setKeyPath] = useState(null)
   const handleConditionSeq = (e) => {
     setConditionSeq(e)
@@ -72,15 +66,15 @@ export default function CodeHelpStockOut1({
       setLastClickedCell(cell)
     }
   }
-  const resetTable = () => {
-    setSelection({
-      columns: CompactSelection.empty(),
-      rows: CompactSelection.empty(),
-    });
-  };
+ 
   const handleClose = () => {
     setModalVisible(false)
     setDeptName('')
+    setDeptSeq('')
+    resetTable()
+  }
+  const search = (e) => {
+    setDeptName(e.target.value)
     setDeptSeq('')
     resetTable()
   }
@@ -157,7 +151,7 @@ export default function CodeHelpStockOut1({
                       handleSearch()
                     }
                   }}
-                  onChange={(e) => setDeptName(e.target.value)}
+                  onChange={search}
                   className=" w-full"
                 />
               </div>
@@ -174,7 +168,7 @@ export default function CodeHelpStockOut1({
             </div>
           </details>
 
-          <TableCodeHelpStockOut1 data={data} onCellClicked={onCellClicked} setSelection={setSelection} selection={selection} />
+          <TableCodeHelpStockOut1 data={data} onCellClicked={onCellClicked} setSelection={setSelection} selection={selection}  />
         </div>
         <div className="flex justify-end gap-4 ">
           <Button onClick={handleClose}>

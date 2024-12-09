@@ -73,7 +73,7 @@ export default function DeliveryListQuery({
               className="mb-0"
             >
               <Input
-                placeholder="Input placeholder"
+                placeholder=""
                 value={deliveryNo}
                 size="small"
                 onChange={(e) => setDeliveryNo(e.target.value)}

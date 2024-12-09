@@ -21,6 +21,7 @@ import {
   UserOutlined,
   PlusOutlined,
   FolderOpenOutlined,
+  FolderOutlined
 } from '@ant-design/icons'
 
 import { SettingIcon, FileMenuIcon, LogoutIcon } from './icon'
@@ -303,9 +304,8 @@ const Sidebar = ({ permissions, rootMenu, menuTransForm }) => {
               collapsed={collapsed}
               collapsedWidth={0}
               onCollapse={toggleSidebar}
-              className={`${
-                collapsed ? 'p-0 border-none' : 'p-2 border-r'
-              } h-screen overflow-auto scroll-container transition-all duration-300 ease-in-out`}
+              className={`${collapsed ? 'p-0 border-none' : 'p-2 border-r'
+                } h-screen overflow-auto scroll-container transition-all duration-300 ease-in-out`}
             >
               <SidebarContent
                 collapsed={collapsed}
@@ -365,7 +365,7 @@ const Sidebar = ({ permissions, rootMenu, menuTransForm }) => {
                             to={item.MenuLink}
                             className="flex items-center justify-start"
                           >
-                            <FolderOpenOutlined style={{ fontSize: '20px' }} />
+                            <FolderOutlined style={{ fontSize: '20px' }} />
                             <span className="ml-3 uppercase">
                               {t(item.MenuLabel)}
                             </span>

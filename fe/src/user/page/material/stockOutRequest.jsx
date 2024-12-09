@@ -6,9 +6,7 @@ const { Title, Text } = Typography
 import { FilterOutlined, LoadingOutlined } from '@ant-design/icons'
 import { ArrowIcon } from '../../components/icons'
 import dayjs from 'dayjs'
-import TableDeliveryList from '../../components/table/material/tableDeliveryList'
 import { GetCodeHelpCombo } from '../../../features/codeHelp/getCodeHelpCombo'
-import { GetDeliveryList } from '../../../features/material/getDeliveryList'
 import { debounce } from 'lodash'
 import { useNavigate } from 'react-router-dom'
 import { encodeBase64Url } from '../../../utils/decode-JWT'
@@ -21,9 +19,7 @@ import CodeHelpStockOut2 from '../../components/modal/material/codeHelpStockOut2
 import CodeHelpStockOut3 from '../../components/modal/material/codeHelpStockOut3'
 import { SPDMMOutReqListQueryWeb } from '../../../features/material/postStockOutList'
 import { GetCodeHelp } from '../../../features/codeHelp/getCodeHelp'
-import NoneData from '../default/noneData'
-import NotificationApp from '../default/notificationStatus'
-const { Header, Content, Footer } = Layout
+import { CompactSelection } from '@glideapps/glide-data-grid'
 export default function StockOutRequest({ permissions, isMobile }) {
   const { t } = useTranslation()
   const gridRef = useRef(null)
@@ -31,13 +27,14 @@ export default function StockOutRequest({ permissions, isMobile }) {
   /*OutReqSeq
    */
   const [loading, setLoading] = useState(false)
-  const [loadingA, setLoadingA] = useState(false)
+  const [loadingA, setLoadingA] = useState(null)
+
   const [errorA, setErrorA] = useState(false)
   const [data, setData] = useState([])
   const [dataUnit, setDataUnit] = useState([])
   const [minorName, setMinorName] = useState([])
   const [minorName2, setMinorName2] = useState([])
-  const [formData, setFormData] = useState(dayjs().startOf('month'))
+  const [formData, setFormData] = useState(dayjs().startOf('month') || '')
   const [toDate, setToDate] = useState(dayjs())
   const [bizUnit, setBizUnit] = useState(4)
   const [factUnit, setFactUnit] = useState('')
@@ -71,22 +68,19 @@ export default function StockOutRequest({ permissions, isMobile }) {
   const [workOrderNo, setWorkOrderNo] = useState('')
   const [prodReqNo, setProdReqNo] = useState('')
   const [outReqNo, setOutReqNo] = useState('')
+  const [selection, setSelection] = useState({
+    columns: CompactSelection.empty(),
+    rows: CompactSelection.empty(),
+  })
+  const [selection2, setSelection2] = useState({
+    columns: CompactSelection.empty(),
+    rows: CompactSelection.empty(),
+  })
+  const [selection3, setSelection3] = useState({
+    columns: CompactSelection.empty(),
+    rows: CompactSelection.empty(),
+  })
 
-  const [spinning, setSpinning] = useState(false);
-  const [percent, setPercent] = useState(0);
-  const showLoader = () => {
-    setSpinning(true);
-    let ptg = -10;
-    const interval = setInterval(() => {
-      ptg += 5;
-      setPercent(ptg);
-      if (ptg > 120) {
-        clearInterval(interval);
-        setSpinning(false);
-        setPercent(0);
-      }
-    }, 100);
-  };
   useEffect(() => {
     const savedState = localStorage.getItem('detailsStateStockOut')
     setIsOpenDetails(savedState === 'open')
@@ -98,14 +92,18 @@ export default function StockOutRequest({ permissions, isMobile }) {
     localStorage.setItem('detailsStateStockOut', isOpen ? 'open' : 'closed')
   }
 
-  const fetchSPDMMOutReqListQueryWeb = useCallback(async () => {
-    setLoadingA(true)
+  let loadingNotification;
+
+  const fetchSPDMMOutReqListQueryWeb = async () => {
+    setLoadingA(true);
+
+
     try {
       const formA = {
         IsChangedMst: '1',
         FactUnit: factUnit,
-        ReqDate: formatDate(formData),
-        ReqDateTo: formatDate(toDate),
+        ReqDate: formData ? formatDate(formData) : '',
+        ReqDateTo: toDate ? formatDate(toDate) : '',
         OutReqNo: outReqNo,
         UseType: useType,
         DeptName: '',
@@ -118,29 +116,39 @@ export default function StockOutRequest({ permissions, isMobile }) {
         ProdPlanNo: prodPlanNo,
         WorkOrderNo: workOrderNo,
         ProdReqNo: prodReqNo,
-      }
-      const response = await SPDMMOutReqListQueryWeb(formA)
-      setData(response?.data || [])
-    } catch (error) {
-      setErrorA(true)
-    } finally {
-      setLoadingA(false)
-    }
-  }, [
-    formData,
-    toDate,
-    factUnit,
-    progStatus,
-    useType,
-    deptSeq,
-    empSeq,
-    custSeq,
-    prodPlanNo,
-    workOrderNo,
-    prodReqNo,
-    outReqNo,
-  ])
+      };
 
+      const response = await SPDMMOutReqListQueryWeb(formA);
+      const fetchedData = response?.data || [];
+      setData(fetchedData);
+
+      /*  notification.destroy();
+ 
+       if (fetchedData.length > 0) {
+         notification.success({
+           message: 'Thành công',
+           description: 'Dữ liệu đã được tải thành công.',
+         });
+       } else {
+         notification.success({
+           message: 'Thành công',
+           description: 'Không có dữ liệu phù hợp được tìm thấy.',
+         });
+       } */
+
+    } catch (error) {
+      setErrorA(true);
+
+      notification.destroy();
+
+      notification.error({
+        message: 'Lỗi',
+        description: 'Có lỗi xảy ra khi tải dữ liệu.',
+      });
+    } finally {
+      setLoadingA(false);
+    }
+  };
 
 
   const fetchCodehelpData1 = useCallback(async () => {
@@ -268,6 +276,7 @@ export default function StockOutRequest({ permissions, isMobile }) {
     [fetchCodeHelpData],
   )
 
+
   const nextPage = useCallback(() => {
     if (keyPath) {
       navigate(`/u/warehouse/material/stock-out-request/${keyPath}`)
@@ -369,6 +378,30 @@ export default function StockOutRequest({ permissions, isMobile }) {
     }
   }, [debouncedFetchCodeHelpData])
 
+  useEffect(() => {
+    fetchSPDMMOutReqListQueryWeb()
+  }, [])
+
+
+  const resetTable = () => {
+    setSelection({
+      columns: CompactSelection.empty(),
+      rows: CompactSelection.empty(),
+    });
+  };
+  const resetTable2 = () => {
+    setSelection2({
+      columns: CompactSelection.empty(),
+      rows: CompactSelection.empty(),
+    });
+  };
+  const resetTable3 = () => {
+    setSelection3({
+      columns: CompactSelection.empty(),
+      rows: CompactSelection.empty(),
+    });
+  };
+
   return (
     <>
       <Helmet>
@@ -390,8 +423,7 @@ export default function StockOutRequest({ permissions, isMobile }) {
             </div>
             <details
               className="group p-2 [&_summary::-webkit-details-marker]:hidden border rounded-lg bg-white"
-              open={isOpenDetails}
-              onToggle={handleToggle}
+              open
             >
               <summary className="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
                 <h2 className="text-xs font-medium flex items-center gap-2 text-blue-600 uppercase">
@@ -437,30 +469,26 @@ export default function StockOutRequest({ permissions, isMobile }) {
                   prodReqNo={prodReqNo}
                   setOutReqNo={setOutReqNo}
                   outReqNo={outReqNo}
+                  resetTable={resetTable}
+                  setEmpName={setEmpName}
+                  setEmpSeq={setEmpSeq}
+                  resetTable2={resetTable2}
+                  resetTable3={resetTable3}
+                  setCustName={setCustName}
+                  setCustSeq={setCustSeq}
                 />
               </div>
             </details>
           </div>
-
           <div className="col-start-1 col-end-5 row-start-2 w-full h-full rounded-lg">
-
-            <NotificationApp loading={loadingA} error={errorA} />
-            {data.length > 0 ? (
-              <>
-                <TableStockOutRequest
-                  data={data}
-                  loading={loading}
-                  setData={setData}
-                  onCellClicked={onCellClicked}
-                  setGridData={setGridData}
-                  gridData={gridData}
-                />
-              </>
-            ) : (
-              <>
-                <NoneData />
-              </>
-            )}
+            <TableStockOutRequest
+              data={data}
+              loading={loading}
+              setData={setData}
+              onCellClicked={onCellClicked}
+              setGridData={setGridData}
+              gridData={gridData}
+            />
           </div>
         </div>
       </div>
@@ -479,6 +507,9 @@ export default function StockOutRequest({ permissions, isMobile }) {
         setDeptName={setDeptName}
         deptName={deptName}
         setData1={setData1}
+        setSelection={setSelection}
+        selection={selection}
+        resetTable={resetTable}
       />
       <CodeHelpStockOut2
         setModalVisible={setModalVisible2}
@@ -493,6 +524,10 @@ export default function StockOutRequest({ permissions, isMobile }) {
         setKeyword={setKeyword}
         setEmpName={setEmpName}
         setEmpSeq={setEmpSeq}
+        setSelection={setSelection2}
+        selection={selection2}
+        resetTable={resetTable2}
+        empName={empName}
       />
       <CodeHelpStockOut3
         setModalVisible={setModalVisible3}
@@ -507,6 +542,10 @@ export default function StockOutRequest({ permissions, isMobile }) {
         setKeyword={setKeyword}
         setCustName={setCustName}
         setCustSeq={setCustSeq}
+        resetTable={resetTable3}
+        setSelection={setSelection3}
+        selection={selection3}
+        custName={custName}
       />
     </>
   )

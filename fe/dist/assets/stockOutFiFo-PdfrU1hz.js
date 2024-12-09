@@ -1,0 +1,111 @@
+import{j as t,B as oe,F as E,b as Ae,C as v,I as U,r as n,H as de,a as xe,u as He,c as Qe,g as _e,s as ge,d as Pe,T as Xe}from"./index-Bs9yWD0t.js";import{a as ze,A as Ge}from"./index-1TNXHxP6.js";import"./dayjs.min-Dv7_HJOV.js";import{l as Ke}from"./lodash-Ce-vbS9w.js";import{C as re,G as a,D as Ce,a as qe}from"./index-OBdMMgIc.js";import{R as Oe}from"./SaveOutlined-BK_GeTTb.js";import{R as Ve}from"./DeleteOutlined-BXFM3QKl.js";import{R as Ye,M as Je,L as Ze,S as Re}from"./successSubmit-zGbH34EA.js";import"./moment-C0yF_v6Q.js";import{E as Ne}from"./constants-BUjU6TAr.js";import{a as Ie}from"./tokenService-DihmZYU2.js";import{R as et}from"./FileTextOutlined-De0ON5I0.js";function tt({status:l,handleSubmit:s,handleDelete:u,handleRestFrom:x,handleUploadExcel:f}){return t.jsxs("div",{className:"flex items-center gap-2",children:[l?t.jsx(t.Fragment,{children:t.jsx("span",{className:"inline-flex items-center justify-center rounded-lg w-20 bg-emerald-100 px-5 py-[6px] text-emerald-700",children:t.jsx("p",{className:"whitespace-nowrap text-sm",children:"LIVE"})})}):t.jsx(t.Fragment,{children:t.jsx("span",{className:"inline-flex items-center justify-center rounded-lg w-20 bg-red-100 px-5 py-[6px] text-red-700",children:t.jsx("p",{className:"whitespace-nowrap text-sm",children:"OFF"})})}),t.jsx(oe,{type:"primary",icon:t.jsx(Oe,{}),size:"middle",className:"uppercase",onClick:s,style:{backgroundColor:"#52c41a",borderColor:"#52c41a"},children:"Save"},"Save"),t.jsx(oe,{type:"primary",icon:t.jsx(Ve,{}),size:"middle",onClick:u,className:"uppercase text-white",style:{backgroundColor:"#ff4d4f",borderColor:"#ff4d4f"},children:"Row Delete"},"Row Delete"),t.jsx(oe,{type:"default",icon:t.jsx(Oe,{}),size:"middle",className:"uppercase",color:"default",variant:"filled",onClick:x,style:{backgroundColor:"#f0f0f0",borderColor:"#d9d9d9"},children:"Reset"},"Reset"),t.jsx(oe,{type:"default",icon:t.jsx(Ye,{}),size:"middle",className:"uppercase",color:"default",variant:"filled",onClick:f,style:{backgroundColor:"#ffa500",borderColor:"#ffa500"},children:"Excel Upload"},"Excel Upload")]})}function nt(){return t.jsx("div",{className:"flex items-center gap-2",children:t.jsxs(E,{layout:"vertical",onKeyDown:l=>{l.key==="Enter"&&l.preventDefault()},children:[" ",t.jsxs(Ae,{className:"gap-4 flex items-center",children:[t.jsx(v,{children:t.jsx(E.Item,{label:t.jsx("span",{className:"uppercase text-[10px]",children:"Nơi sản xuất"}),className:"mb-0",children:t.jsx(U,{size:"small",className:" text-sm p-2 "})})}),t.jsx(v,{children:t.jsx(E.Item,{label:t.jsx("span",{className:"uppercase text-[10px]",children:"Số yêu cầu"}),className:"mb-0",children:t.jsx(U,{size:"small",className:" text-sm p-2 "})})}),t.jsx(v,{children:t.jsx(E.Item,{label:t.jsx("span",{className:"uppercase text-[10px]",children:"Ngày yêu cầu"}),className:"mb-0",children:t.jsx(U,{size:"small",className:" text-sm p-2 "})})}),t.jsx(v,{children:t.jsx(E.Item,{label:t.jsx("span",{className:"uppercase text-[10px]",children:"Người yêu cầu"}),className:"mb-0",children:t.jsx(U,{size:"small",className:" text-sm p-2 "})})}),t.jsx(v,{children:t.jsx(E.Item,{label:t.jsx("span",{className:"uppercase text-[10px]",children:"Bộ phận yêu cầu"}),className:"mb-0",children:t.jsx(U,{size:"small",className:" text-sm p-2 "})})}),t.jsx(v,{children:t.jsx(E.Item,{label:t.jsx("span",{className:"uppercase text-[10px]",children:"Trạng thái Y/N"}),className:"mb-0",children:t.jsx(U,{size:"small",className:" text-sm p-2 "})})}),t.jsx(v,{children:t.jsx(E.Item,{label:t.jsx("span",{className:"uppercase text-[10px]",children:"Ghi chú"}),className:"mb-0",children:t.jsx(U,{size:"small",className:" text-sm p-2 "})})})]})]})})}function lt({data:l}){const[s,u]=n.useState([]),[x,f]=n.useState(!1),S=n.useCallback(()=>f(!1),[]),[X,b]=n.useState(null);n.useState([]);const[pe,F]=n.useState(!1),[z,y]=n.useState(null),[L,j]=n.useState({columns:re.empty(),rows:re.empty()}),T=n.useMemo(()=>[{title:"OutReqNo"},{title:"ItemName"},{title:"ItemNo"},{title:"Spec"},{title:"UnitName"},{title:"RemainQty"},{title:"OutQty"},{title:"Qty1"}],[]),[k,B]=n.useState(T),$=n.useCallback((o,C)=>{const c=k.indexOf(o);if(c!==-1){const p={...o,width:C},I=[...k];I.splice(c,1,p),B(I)}},[k]),G=n.useCallback(([o,C])=>{const c=s[C]||{},{OutReqNo:p="",ItemName:I="",ItemNo:V="",Spec:h="",UnitName:W="",RemainQty:A="",OutQty:Y="",Qty1:M=""}=c,O=w=>w!=null?String(w):"",H={0:{kind:a.Text,data:O(p)},1:{kind:a.Text,data:O(I)},2:{kind:a.Text,data:O(V)},3:{kind:a.Text,data:O(h)},4:{kind:a.Text,data:O(W)},5:{kind:a.Text,data:O(A)},6:{kind:a.Text,data:O(Y)},7:{kind:a.Text,data:O(M)}};if(H.hasOwnProperty(o)){const{kind:w,data:Q}=H[o];return{kind:w,data:Q,displayData:Q}}return{kind:a.Text,data:"",displayData:""}},[s]),[N,K]=n.useState(void 0);n.useCallback(o=>{console.log("cell",o),K(o)},[]),n.useEffect(()=>{u(l)},[l]);const D=(o,C)=>{let c;if(o[0]!==-1){console.log("Ignoring click on cell, cell[0] is neither -1 nor 1");return}if(o[0]===-1?(c=o[1],F(!0)):(c=o[0],F(!1)),z&&z[0]===o[0]&&z[1]===o[1]){console.log("Click again on the same cell, deactivating."),y(null),b(null);return}if(c>=0&&c<s.length){const p=s[c];b(p),y(o)}else console.log("Invalid row index:",c)};return t.jsx("div",{className:"w-full h-full border-t border-b overflow-hidden scroll-container ",children:t.jsx(Ce,{columns:k,getCellContent:G,rows:s.length,showSearch:x,getCellsForSelection:!0,onSearchClose:S,width:"100%",height:"100%",rowMarkers:"both",useRef:n.useRef,onColumnResize:$,smoothScrollY:!0,smoothScrollX:!0,onCellClicked:D,rowSelect:"single",gridSelection:L,onGridSelectionChange:j,getRowThemeOverride:o=>o%2===0?void 0:{bgCell:"#FBFBFB"}})})}function ot({data:l,selection:s,setSelection:u}){const[x,f]=n.useState([]),[S,X]=n.useState(!1),b=n.useCallback(()=>X(!1),[]),[pe,F]=n.useState(null);n.useState([]);const[z,y]=n.useState(!1),[L,j]=n.useState(null),T=n.useMemo(()=>[{title:"OutReqSeq"},{title:"OutReqItemSerl"},{title:"WorkOrderSeq"},{title:"WorkOrderSerl"},{title:"FactUnit"},{title:"FactUnitName"},{title:"InWHSeq"},{title:"InWHName"},{title:"OutWHSeq"},{title:"OutWHName"},{title:"ItemSeq"},{title:"UnitSeq"},{title:"ItemNo"},{title:"LotNo"},{title:"Qty"},{title:"DateCode"},{title:"ReelNo"},{title:"Barcode"},{title:"StockOutDate"},{title:"LotNoFull"},{title:"ReqQty"},{title:"EmpSeq"}],[]),[k,B]=n.useState(T),$=n.useCallback((o,C)=>{const c=k.indexOf(o);if(c!==-1){const p={...o,width:C},I=[...k];I.splice(c,1,p),B(I)}},[k]),G=n.useCallback(([o,C])=>{const c=x[C]||{},{OutReqSeq:p="",OutReqItemSerl:I="",WorkOrderSeq:V="",WorkOrderSerl:h="",FactUnit:W="",FactUnitName:A="",InWHSeq:Y="",InWHName:M="",OutWHSeq:O="",OutWHName:H="",ItemSeq:w="",UnitSeq:Q="",ItemNo:he="",LotNo:Z="",Qty:ke="",DateCode:ae="",ReelNo:se="",Barcode:ie="",StockOutDate:ce="",LotNoFull:R="",ReqQty:me="",EmpSeq:ue=""}=c,i=_=>_!=null?String(_):"",ee={0:{kind:a.Text,data:i(p)},1:{kind:a.Text,data:i(I)},2:{kind:a.Text,data:i(V)},3:{kind:a.Text,data:i(h)},4:{kind:a.Text,data:i(W)},5:{kind:a.Text,data:i(A)},6:{kind:a.Text,data:i(Y)},7:{kind:a.Text,data:i(M)},8:{kind:a.Text,data:i(O)},9:{kind:a.Text,data:i(H)},10:{kind:a.Text,data:i(w)},11:{kind:a.Text,data:i(Q)},12:{kind:a.Text,data:i(he)},13:{kind:a.Text,data:i(Z)},14:{kind:a.Text,data:i(ke)},15:{kind:a.Text,data:i(ae)},16:{kind:a.Text,data:i(se)},17:{kind:a.Text,data:i(ie)},18:{kind:a.Text,data:i(ce)},19:{kind:a.Text,data:i(R)},20:{kind:a.Text,data:i(me)},21:{kind:a.Text,data:i(ue)}};if(ee.hasOwnProperty(o)){const{kind:_,data:te}=ee[o];return{kind:_,data:te,displayData:te}}return{kind:a.Text,data:"",displayData:""}},[x]),[N,K]=n.useState(void 0);n.useCallback(o=>{console.log("cell",o),K(o)},[]),n.useEffect(()=>{f(l)},[l]);const D=(o,C)=>{let c;if(o[0]!==-1){console.log("Ignoring click on cell, cell[0] is neither -1 nor 1");return}if(o[0]===-1?(c=o[1],y(!0)):(c=o[0],y(!1)),L&&L[0]===o[0]&&L[1]===o[1]){console.log("Click again on the same cell, deactivating."),j(null),F(null);return}if(c>=0&&c<x.length){const p=x[c];F(p),j(o)}else console.log("Invalid row index:",c)};return t.jsx("div",{className:"w-full h-full border-t border-b overflow-hidden scroll-container ",children:t.jsx(Ce,{columns:k,getCellContent:G,rows:x.length,showSearch:S,getCellsForSelection:!0,onSearchClose:b,width:"100%",height:"100%",rowMarkers:"both",useRef:n.useRef,onColumnResize:$,smoothScrollY:!0,smoothScrollX:!0,onCellClicked:D,rowSelect:"single",gridSelection:s,onGridSelectionChange:u,getRowThemeOverride:o=>o%2===0?void 0:{bgCell:"#FBFBFB"}})})}function rt({sampleTableA:l,sampleTableB:s,setSelection:u,selection:x}){return t.jsxs("div",{className:"w-full gap-1 h-full flex items-center justify-center",children:[t.jsxs("div",{className:"w-[55%] h-full flex flex-col border bg-white rounded-lg overflow-hidden pb-7",children:[t.jsx("div",{className:" text-xs font-medium flex items-center gap-2 p-2 text-blue-600 uppercase ",children:"B"}),t.jsx(ot,{data:s,setSelection:u,selection:x})]}),t.jsx("div",{className:"px-4 flex flex-col p-3  bg-[#eee] rounded-lg items-center justify-center",children:t.jsx(ze,{})}),t.jsxs("div",{className:"w-[45%] h-full flex flex-col border bg-white rounded-lg overflow-hidden pb-7",children:[t.jsx("div",{className:" text-xs font-medium flex items-center gap-2 p-2 text-blue-600 uppercase ",children:"A"}),t.jsx(lt,{data:l})]})]})}const at=async l=>{try{const s=`${de}/mssql/stock-out/itm-spd-mm-out-req-item-list`,u=await xe.get(s,{params:{outReqSeq:l},headers:{"Content-Type":"application/json"}});return u.status===200?{success:!0,data:u.data.data}:{success:!1,message:Ne.ERROR}}catch(s){return{success:!1,message:s.response?s.response.data.message:Ne.ERROR}}},st=l=>`
+        <DataBlock1>
+          <WorkingTag>${l.WorkingTag}</WorkingTag>
+          <IDX_NO>1</IDX_NO>
+          <Status>0</Status>
+          <DataSeq>1</DataSeq>
+          <Selected>1</Selected>
+          <TABLE_NAME>DataBlock1</TABLE_NAME>
+          <OutReqSeq>${l.OutReqSeq}</OutReqSeq>
+          <OutReqItemSerl>${l.OutReqItemSerl}</OutReqItemSerl>
+          <WorkOrderSeq>${l.WorkOrderSeq}</WorkOrderSeq>
+          <WorkOrderSerl>${l.WorkOrderSerl}</WorkOrderSerl>
+          <FactUnit>${l.FactUnit}</FactUnit>
+          <FactUnitName>${l.FactUnitName}</FactUnitName>
+          <InWHSeq>${l.InWHSeq}</InWHSeq>
+          <InWHName>${l.InWHName}</InWHName>>
+          <OutWHSeq>${l.OutWHSeq}</OutWHSeq>
+          <OutWHName>${l.OutWHName}</OutWHName>
+          <ItemSeq>${l.ItemSeq}</ItemSeq>
+          <UnitSeq>${l.UnitSeq}</UnitSeq>
+          <ItemNo>${l.ItemNo}</ItemNo>
+          <LotNo>${l.LotNo}</LotNo>
+          <Qty>${l.Qty}</Qty>
+          <DateCode>${l.DateCode}</DateCode>
+          <ReelNo>${l.ReelNo}</ReelNo>
+          <Barcode>${l.Barcode}</Barcode>
+        </DataBlock1>
+    `,it={xmlFlags:2,serviceSeq:60010002,workingTag:"",languageSeq:6,pgmSeq:1036085},ct=l=>{const s={...it,...l},u=Ie(),f={xmlDocument:st(s),xmlFlags:s.xmlFlags,serviceSeq:s.serviceSeq,workingTag:s.workingTag,languageSeq:s.languageSeq,pgmSeq:s.pgmSeq};return xe.post(`${de}/mssql/stock-out/smaterial-qr-check-stock-out-web`,f,{headers:{Authorization:`Bearer ${u}`,"Content-Type":"application/json"}}).then(S=>{if(S.status===200||S.status===201)return S.data;throw new Error("Error from API: "+S.data.message)}).catch(S=>{const X=S.response?S.response.data.message||"Error from API":"Unknown error occurred";throw new Error(X)})},mt={xmlFlags:2,serviceSeq:2639,workingTag:"",languageSeq:6,pgmSeq:1036085},ut=async(l,s)=>{try{const u=Ie(),x={...mt,dataSave:l,xmlDocument:{xmlSCOMCloseCheckWEB:s.xmlSCOMCloseCheckWEB,xmlSCOMCloseItemCheckWEB:s.xmlSCOMCloseItemCheckWEB,xmlSPDMMOutProcCheckWEB:s.xmlSPDMMOutProcCheckWEB,xmlSPDMMOutProcItemCheckWEB:s.xmlSPDMMOutProcItemCheckWEB}},f=await xe.post(`${de}/mssql/stock-out/check-all-procedures-stock-out-fifo`,x,{headers:{Authorization:`Bearer ${u}`,"Content-Type":"application/json"}});if(f.status>=200&&f.status<300)return f.data;throw new Error("Unexpected response status: "+f.status)}catch(u){let x="Unknown error occurred";throw u.response?x=u.response.data.message||`API error with status ${u.response.status}`:u.request?x="No response received from the server":x=u.message,new Error(x)}},{Title:dt,Text:Dt}=Xe;function wt({permissions:l,isMobile:s}){const{t:u}=He(),x=Qe(),{id:f}=_e(),S=n.useRef(null),[X,b]=n.useState(null),[pe,F]=n.useState(null),[z,y]=n.useState(null),[L,j]=n.useState(!1),T=n.useRef(""),[k,B]=n.useState([]),$=n.useRef(k),[G,N]=n.useState(!1);n.useState(!1);const[K,D]=n.useState(!1),[o,C]=n.useState(!1),[c,p]=n.useState(null),[I,V]=n.useState(null),[h,W]=n.useState([]),A=n.useRef(h),[Y,M]=n.useState(!1),[O,H]=n.useState(null),[w,Q]=n.useState({columns:re.empty(),rows:re.empty()}),[he,Z]=n.useState(!1),[ke,ae]=n.useState(!1),se="TEST_ACCESS_KEY";n.useEffect(()=>{const e=localStorage.getItem("detailsStateStockOutFiFo");ae(e==="open")},[]);const ie=e=>{try{let r=e.replace(/-/g,"+").replace(/_/g,"/");const m=r.length%4===0?"":"=".repeat(4-r.length%4);return r+m}catch{throw new Error("Invalid Base64 URL")}},ce=e=>{try{const r=ie(e),g=qe.AES.decrypt(r,se).toString(qe.enc.Utf8);return JSON.parse(g)}catch{return x("/u/warehouse/material/stock-out-request"),null}},R=async e=>{try{Z(!0);const r=await at(e);B((r==null?void 0:r.data)||[])}catch{B([])}finally{Z(!1)}};n.useEffect(()=>{if(f){const e=ce(f);console.log("data122",e),e&&(H(e),R(e==null?void 0:e.OutReqSeq))}},[f]);const me=n.useCallback((e,r)=>{var q,d;const m=(q=e==null?void 0:e.LotNoFull)==null?void 0:q.trim().toLowerCase(),g=(d=e==null?void 0:e.Barcode)==null?void 0:d.trim().toLowerCase();W(J=>{if(!J.some(P=>{var ne,le;return((ne=P.LotNoFull)==null?void 0:ne.trim().toLowerCase())===m&&((le=P.Barcode)==null?void 0:le.trim().toLowerCase())===g})){const P=[...J,{OutReqSeq:e==null?void 0:e.OutReqSeq,OutReqItemSerl:e==null?void 0:e.OutReqItemSerl,WorkOrderSeq:e==null?void 0:e.WorkOrderSeq,WorkOrderSerl:e==null?void 0:e.WorkOrderSerl,FactUnit:e==null?void 0:e.FactUnit,FactUnitName:e==null?void 0:e.FactUnitName,InWHSeq:e==null?void 0:e.InWHSeq,InWHName:e==null?void 0:e.InWHName,OutWHSeq:e==null?void 0:e.OutWHSeq,OutWHName:e==null?void 0:e.OutWHName,ItemSeq:e==null?void 0:e.ItemSeq,UnitSeq:e==null?void 0:e.UnitSeq,ItemNo:e==null?void 0:e.ItemNo,LotNo:e==null?void 0:e.LotNo,Qty:e==null?void 0:e.Qty,DateCode:e==null?void 0:e.DateCode,ReelNo:e==null?void 0:e.ReelNo,Barcode:e==null?void 0:e.Barcode,StockOutDate:e==null?void 0:e.StockOutDate,LotNoFull:e==null?void 0:e.LotNoFull,ReqQty:e==null?void 0:e.ReqQty,EmpSeq:e==null?void 0:e.EmpSeq}];return r(),P}return J})},[]),ue=n.useCallback(e=>{const r=$.current,m=A.current;S.current.postMessage({type:"CHECK_BARCODE",barcode:e,tableData:r,tableScanHistory:m})},[]);n.useEffect(()=>{const e=q=>{if(q.key==="Enter"&&T.current.trim()){const d=T.current.trim();ue(d),b(d),T.current=""}else q.key.length===1&&(T.current+=q.key)},r=()=>M(!0),m=()=>M(!1),g=()=>M(!0);return window.addEventListener("keypress",e),window.addEventListener("focus",r),window.addEventListener("blur",m),document.addEventListener("click",g),()=>{window.removeEventListener("keypress",e),window.removeEventListener("focus",r),window.removeEventListener("blur",m),document.removeEventListener("click",g)}},[]);const i=n.useCallback(Ke.debounce(async(e,r)=>{const m=await ct(e);if(m.success){const g=m.data[0];ge.success(r),F(null),N(!1),b(null),me(g,()=>{B(q=>q.map(d=>d.ItemNo===e.ItemNo?{...d,OutQty:d.OutQty+e.Qty,RemainQty:d.RemainQty-e.Qty}:d))})}else N(!0),p(m==null?void 0:m.message)},100),[]);n.useEffect(()=>(S.current=new Worker(new URL("/assets/workeStockOutFiFo-DVmTYmS-.js",import.meta.url)),S.current.onmessage=async e=>{const{success:r,message:m,data:g}=e.data;if(r){if(g){const{itemNo:q,qty:d,lot:J,dc:Se,reel:P,barcode:ne,UnitSeq:le,ItemSeq:Te,OutWHName:We,OutWHSeq:Ee,InWHName:be,InWHSeq:Fe,FactUnitName:Be,FactUnit:Me,WorkOrderSerl:ve,WorkOrderSeq:Ue,OutReqItemSerl:Le,OutReqSeq:$e}=g;i({WorkingTag:"A",Idx_no:"1",Status:"0",DataSeq:"1",Selected:"1",OutReqSeq:$e,OutReqItemSerl:Le,WorkOrderSeq:Ue,WorkOrderSerl:ve,FactUnit:Me,FactUnitName:Be,InWHSeq:Fe,InWHName:be,OutWHSeq:Ee,OutWHName:We,ItemSeq:Te,UnitSeq:le,ItemNo:q,LotNo:J,Qty:d,DateCode:Se,ReelNo:P,Barcode:ne},m)}}else N(!0),p(m)},()=>{S.current.terminate(),i.cancel()}),[O,i]),n.useEffect(()=>{$.current=k,A.current=h},[k,h]);const ee=e=>`
+          <DataBlock1>
+              <WorkingTag>A</WorkingTag>
+              <IDX_NO>1</IDX_NO>
+              <Status>0</Status>
+              <DataSeq>1</DataSeq>
+              <Selected>1</Selected>
+              <TABLE_NAME>DataBlock1</TABLE_NAME>
+              <IsChangedMst>1</IsChangedMst>
+              <FactUnit>${e.FactUnit}</FactUnit>
+              <Date>${e.StockOutDate}</Date>
+              <ServiceSeq>3032</ServiceSeq>
+              <MethodSeq>2</MethodSeq>
+              <DtlUnitSeq>1</DtlUnitSeq>
+          </DataBlock1>
+      `,_=(e,r)=>`
+  <DataBlock2>
+   <WorkingTag>A</WorkingTag>
+    <IDX_NO>${r+1}</IDX_NO>
+    <DataSeq>${r+1}</DataSeq>
+    <Status>0</Status>
+    <Selected>0</Selected>
+    <ItemSeq>${e.ItemSeq}</ItemSeq>
+    <FactUnit>${e.FactUnit}</FactUnit>
+    <TABLE_NAME>DataBlock2</TABLE_NAME>
+    <FactUnitOld>1</FactUnitOld>
+    <DateOld>${e.StockOutDate}</DateOld>
+    <ServiceSeq>3032</ServiceSeq>
+    <MethodSeq>2</MethodSeq>
+    <Date>${e.StockOutDate}</Date>
+  </DataBlock2>
+`,te=e=>`
+        <DataBlock1>
+            <WorkingTag>A</WorkingTag>
+    <IDX_NO>1</IDX_NO>
+    <Status>0</Status>
+    <DataSeq>1</DataSeq>
+    <Selected>1</Selected>
+    <TABLE_NAME>DataBlock1</TABLE_NAME>
+    <IsChangedMst>1</IsChangedMst>
+    <UseType>6044001</UseType>
+    <IsOutSide>0</IsOutSide>
+    <OutWHSeq />
+    <InWHSeq>${e.InWHSeq}</InWHSeq>
+    <MatOutSeq>0</MatOutSeq>
+    <FactUnit>${e.FactUnit}</FactUnit>
+    <MatOutNo />
+    <MatOutDate>${e.StockOutDate}</MatOutDate>
+    <EmpSeq>${e.EmpSeq}</EmpSeq>
+    <MatOutType />
+    <Remark />
+        </DataBlock1>
+    `,ye=(e,r)=>`
+  <DataBlock3>
+   <WorkingTag>A</WorkingTag>
+     <IDX_NO>${r+1}</IDX_NO>
+    <DataSeq>${r+1}</DataSeq>
+    <Status>0</Status>
+    <Selected>0</Selected>
+    <ReqQty>${e.ReqQty}</ReqQty>
+    <Qty>${e.Qty}</Qty>
+    <StdUnitQty>0</StdUnitQty>
+    <Remark />
+    <ItemLotNo>${e.LotNoFull}</ItemLotNo>
+    <SerialNoFrom />
+    <MatOutSeq></MatOutSeq>
+    <OutItemSerl>0</OutItemSerl>
+    <ItemSeq>${e.ItemSeq}</ItemSeq>
+    <OutWHSeq>${e.OutWHSeq}</OutWHSeq>
+    <InWHSeq>${e.InWHSeq}</InWHSeq>
+    <UnitSeq>${e.UnitSeq}</UnitSeq>
+    <WorkOrderSeq>${e.WorkOrderSeq}</WorkOrderSeq>
+    <ConsgnmtCustSeq>0</ConsgnmtCustSeq>
+    <OutReqSeq>${e.OutReqSeq}</OutReqSeq>
+    <OutReqItemSerl>${e.OutReqItemSerl}</OutReqItemSerl>
+    <PJTSeq>0</PJTSeq>
+    <WBSSeq>0</WBSSeq>
+    <WorkOrderSerl>${e.WorkOrderSerl}</WorkOrderSerl>
+    <AlterRate>0</AlterRate>
+    <TABLE_NAME>DataBlock3</TABLE_NAME>
+  </DataBlock3>
+`,De=n.useCallback(async e=>{if(e.preventDefault(),j(!0),y(null),D(!0),h.length===0){j(!1),N(!0),D(!1),y(null),p("Chưa có dữ liệu để gửi. Vui lòng quét dữ liệu trước khi gửi.");return}const r=ee(h[0]),m=h.map(_).join(`
+`),g=te(h[0]),q=h.map(ye).join(`
+`);try{const d=await ut(h,{xmlSCOMCloseCheckWEB:r,xmlSCOMCloseItemCheckWEB:m,xmlSPDMMOutProcCheckWEB:g,xmlSPDMMOutProcItemCheckWEB:q});y(d),d.success?(D(!1),C(!0),V("Tất cả các dữ liệu đã được thực thi thành công!"),fe(),W([])):(D(!1),N(!0),p(d.message))}catch(d){D(!1),y({error:d.message}),N(!0),p(d.message)}finally{j(!1)}},[O,h]),fe=n.useCallback(async e=>{if(e.preventDefault(),h.length===0){N(!0),p("Không có dữ liệu để reset! Vui lòng quét dữ liệu trước.");return}W([]),R(k==null?void 0:k.OutReqSeq),ge.success("Reset form thành công!")},[O,h]),we=()=>{const e=w.rows.items;let r=[];return e.forEach(m=>{const g=m[0],q=m[1]-1;for(let d=g;d<=q;d++)r.push(d)}),r},je=n.useCallback(async e=>{e.preventDefault();const r=we();if(r.length===0){N(!0),p("Vui lòng chọn ít nhất một hàng để xóa.");return}if(h.length===0){N(!0),p("Không có dữ liệu nào để xóa.");return}const m=h.filter((g,q)=>!r.includes(q));W(m)},[h,w]);return t.jsxs(t.Fragment,{children:[t.jsx(Pe,{children:t.jsxs("title",{children:["ITM - ",u("Stock Out Request")]})}),t.jsxs("div",{className:"bg-slate-50 p-3 h-screen overflow-hidden",children:[t.jsxs("div",{className:"flex flex-col gap-4 md:grid md:grid-cols-4 md:grid-rows-[auto_1fr] md:gap-4 h-full",children:[t.jsxs("div",{className:"col-start-1 col-end-5 row-start-1 w-full rounded-lg ",children:[t.jsxs("div",{className:"flex items-center justify-between mb-2",children:[t.jsx(dt,{level:4,className:"mt-2 uppercase opacity-85 ",children:u("Stock Out FIFO")}),t.jsx(tt,{status:Y,handleSubmit:De,handleRestFrom:fe,handleDelete:je})]}),t.jsxs("details",{className:"group p-2 [&_summary::-webkit-details-marker]:hidden border rounded-lg bg-white",open:!0,children:[t.jsxs("summary",{className:"flex cursor-pointer items-center justify-between gap-1.5 text-gray-900",children:[t.jsxs("h2",{className:"text-xs font-medium flex items-center gap-2 text-blue-600 uppercase",children:[t.jsx(et,{}),u("Giá trị")]}),t.jsx("span",{className:"relative size-5 shrink-0",children:t.jsx(Ge,{})})]}),t.jsx("div",{className:"flex p-2 gap-4",children:t.jsx(nt,{})})]})]}),t.jsx("div",{className:"col-start-1 col-end-5 row-start-2 w-full h-full rounded-lg",children:t.jsx(rt,{sampleTableA:k,sampleTableB:h,setSelection:Q,selection:w})})]}),t.jsx(Je,{modal2Open:G,setModal2Open:N,error:c}),t.jsx(Ze,{setModal4Open:D,modal4Open:K}),t.jsx(Re,{setModal5Open:C,modal5Open:o,successMessage:I})]})]})}export{wt as default};

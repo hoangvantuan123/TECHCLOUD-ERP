@@ -17,6 +17,10 @@ export default function CodeHelpStockOut3({
   fetchCodehelpData3,
   setCustSeq,
   setCustName,
+  custName,
+  resetTable, 
+  setSelection, 
+  selection
 }) {
   const [isMinusClicked, setIsMinusClicked] = useState(false)
   const [lastClickedCell, setLastClickedCell] = useState(null)
@@ -63,7 +67,17 @@ export default function CodeHelpStockOut3({
       setLastClickedCell(cell)
     }
   }
-
+  const handleClose = () => {
+    setModalVisible(false)
+    setCustName('')
+    setCustSeq('')
+    resetTable()
+  }
+  const search = (e) => {
+    setCustName(e.target.value)
+    setCustSeq('')
+    resetTable()
+  }
   return (
     <div>
       <Modal
@@ -115,13 +129,13 @@ export default function CodeHelpStockOut3({
                   allowClear
                   size="middle"
                   placeholder="Tìm kiếm"
-                  value={keyword}
+                  value={custName}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       handleSearch()
                     }
                   }}
-                  onChange={(e) => setKeyword(e.target.value)}
+                  onChange={search}
                   className=" w-full"
                 />
               </div>
@@ -137,9 +151,12 @@ export default function CodeHelpStockOut3({
               </div>
             </div>
           </details>
-          <TableCodeHelpStockOut3 data={data} onCellClicked={onCellClicked} />
+          <TableCodeHelpStockOut3 data={data} onCellClicked={onCellClicked} setSelection={setSelection} selection={selection}  />
         </div>
-        <div className="flex justify-end ">
+        <div className="flex justify-end gap-4 ">
+          <Button onClick={handleClose}>
+            Cancel
+          </Button>
           <Button type="primary" onClick={() => setModalVisible(false)}>
             Save
           </Button>

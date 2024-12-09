@@ -10,14 +10,15 @@ export default function CodeHelpStockOut2({
   data,
   modalVisible,
   setModalVisible,
-  setKeyword,
-  keyword,
-  loadingCodeHelp,
+  empName,
   handleSearch,
   setSubConditionSql,
   fetchCodehelpData2,
   setEmpSeq,
   setEmpName,
+  setSelection,
+  selection,
+  resetTable
 }) {
   const [isMinusClicked, setIsMinusClicked] = useState(false)
   const [lastClickedCell, setLastClickedCell] = useState(null)
@@ -64,7 +65,17 @@ export default function CodeHelpStockOut2({
       setLastClickedCell(cell)
     }
   }
-
+  const handleClose = () => {
+    setModalVisible(false)
+    setEmpName('')
+    setEmpSeq('')
+    resetTable()
+  }
+  const search = (e) => {
+    setEmpName(e.target.value)
+    setEmpSeq('')
+    resetTable()
+  }
   return (
     <div>
       <Modal
@@ -114,13 +125,13 @@ export default function CodeHelpStockOut2({
                   allowClear
                   size="middle"
                   placeholder="Tìm kiếm"
-                  value={keyword}
+                  value={empName}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       handleSearch()
                     }
                   }}
-                  onChange={(e) => setKeyword(e.target.value)}
+                  onChange={search}
                   className=" w-full"
                 />
               </div>
@@ -137,9 +148,12 @@ export default function CodeHelpStockOut2({
             </div>
           </details>
 
-          <TableCodeHelpStockOut2 data={data} onCellClicked={onCellClicked} />
+          <TableCodeHelpStockOut2 data={data} onCellClicked={onCellClicked} setSelection={setSelection} selection={selection} />
         </div>
-        <div className="flex justify-end ">
+        <div className="flex justify-end gap-4 ">
+          <Button onClick={handleClose}>
+            Cancel
+          </Button>
           <Button type="primary" onClick={() => setModalVisible(false)}>
             Save
           </Button>
